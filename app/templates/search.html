@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block main %}
+<h1>Search for cars by make or model</h1>
+<form action="{{ url_for('search') }}" method="POST" enctype="multipart/form-data">
+    <h2>Search</h2>
+    {{ form.csrf_token }}	  
+    <div class="form-group">
+        {{ form.name(class='form-control',placeholder="Enter car name.") }}
+    </div>
+    <button type="submit" name="submit" class="btn btn-primary btn-block">Search</button>
+</form>
+{% endblock %}

@@ -26,12 +26,12 @@ def about():
 @app.route('/api/register', methods=['POST'])
 def register():
     """Render website's home page."""
-    return render_template('home.html')
+    return render_template('register.html')
 
 @app.route('/api/auth/login', methods=['POST'])
 def login():
     """Render website's home page."""
-    return render_template('home.html')
+    return render_template('login.html')
 
 @app.route('/api/auth/logout', methods=['POST'])
 def logout():
@@ -41,37 +41,37 @@ def logout():
 @app.route('/api/cars', methods=['GET'])
 def cars():
     """Render website's home page."""
-    return render_template('home.html')
+    return render_template('carlist.html')
 
 @app.route('/api/cars',  methods=['POST'])
 def addcars():
     """Render website's home page."""
-    return render_template('home.html')
+    return render_template('addcar.html')
 
 @app.route('/api/cars/{car_id}', methods=['GET'])
 def carid():
     """Render website's home page."""
-    return render_template('home.html')
+    return render_template('car.html')
 
 @app.route('/api/cars/{car_id}/favourite', methods=['POST'])
 def favourite():
     """Render website's home page."""
-    return render_template('home.html')
+    return render_template('carlist.html')
 
 @app.route('/api/cars/search', methods=['GET'])
 def search():
     """Render website's home page."""
-    return render_template('home.html')
+    return render_template('search.html')
 
 @app.route('/api/users/{user_id}', methods=['GET'])
 def userid():
     """Render website's home page."""
-    return render_template('home.html')
+    return render_template('user.html')
 
 @app.route('/api/users/{user_id}/favourites', methods=['GET'])
 def userfav():
     """Render website's home page."""
-    return render_template('home.html')
+    return render_template('favourites.html')
 
 ###
 # The functions below should be applicable to all Flask apps.
