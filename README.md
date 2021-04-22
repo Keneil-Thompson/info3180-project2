@@ -1,1 +1,3 @@
-# info3180-project2
+# INFO3180 - Project 2
+
+This is the code for Project 2
