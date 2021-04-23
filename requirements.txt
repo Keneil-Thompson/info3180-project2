@@ -11,3 +11,5 @@ Flask-SQLAlchemy
 Flask-Migrate
 Flask-Script
 Flask-Login
+email_validator
+psycopg2

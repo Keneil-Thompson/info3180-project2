@@ -11,6 +11,7 @@ from app.forms import UserForm, CarForm, LoginForm
 from app.models import User, Car, Favourite
 from datetime import date
 from werkzeug.utils import secure_filename
+from werkzeug.security import check_password_hash
 import os
 
 
@@ -20,19 +21,20 @@ import os
 
 @app.route('/')
 def home():
-    """Render website's home page."""
-    return render_template('home.html')
+	"""Render website's home page."""
+	session['loggedin']=False
+	return render_template('home.html')
 
 @app.route('/about/')
 def about():
     """Render the website's about page."""
     return render_template('about.html', name="Christopher Martin, David Scott, Keneil Thompson, Shaquan Robinson")
 
-@app.route('/api/register', methods=['POST'])
+@app.route('/api/register', methods=['POST','GET'])
 def register():
-    """Render website's home page."""
 	form = UserForm()
 	if request.method == 'POST' and form.validate_on_submit():
+		print("check")
 		photo = form.photo.data
 		file = secure_filename(photo.filename)
 		photo.save(os.path.join(app.config['UPLOAD_FOLDER'],file))
@@ -44,27 +46,28 @@ def register():
 		location = form.location.data,
 		biography = form.biography.data,
 		photo = file,
-		date_joined = date.today())
-		
+		date_joined = "today")
+		print("check1")
 		db.session.add(entry)
+		print("check2")
 		db.session.commit()
-		flash('Property successfully added')
-    return render_template('register.html')
+		print("check3")
+		flash('Registration successfull')
+		return redirect(url_for('home'))
+	return render_template('register.html',form=form)
 
 @app.route('/api/auth/login', methods=['POST'])
 def login():
-    """Render website's home page."""
 	form = LoginForm
 	if request.method == 'POST' and form.validate_on_submit():
 		username = form.username.data
 		password = form.password.data
-    return render_template('login.html')
+	return render_template('login.html')
 
 @app.route('/api/auth/logout', methods=['POST'])
 def logout():
-    """Render website's home page."""
 	session.clear()
-    return render_template('home.html')
+	return render_template('home.html')
 
 @app.route('/api/cars', methods=['GET'])
 def cars():
