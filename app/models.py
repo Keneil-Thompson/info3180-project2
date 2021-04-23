@@ -53,6 +53,7 @@ class Car(db.Model):
 	transmission = db.Column(db.String(80))
 	car_type = db.Column(db.String(80))
 	price = db.Column(db.Float(9,2))
+	photo = db.Column(db.String(80))
 	user_id = db.Column(db.Integer)
 	
 	
@@ -74,7 +75,7 @@ class Car(db.Model):
 	def __repr__(self):
 		return '<User %r>' % (self.username)
 	
-	def __init__(self,description,make,model,colour,year,transmission,car_type,price,user_id):
+	def __init__(self,description,make,model,colour,year,transmission,car_type,price,photo,user_id):
 		self.description = description
 		self.make = make
 		self.model = model
@@ -83,6 +84,7 @@ class Car(db.Model):
 		self.transmission = transmission
 		self.car_type = car_type
 		self.price = price
+		self.photo = photo
 		self.user_id = user_id
 		
 class Favourite(db.Model):
