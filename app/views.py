@@ -5,8 +5,13 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
 
-from app import app
-from flask import render_template, request, redirect, url_for, flash
+from app import app, db
+from flask import render_template, request, redirect, url_for, flash, session
+from app.forms import UserForm, CarForm, LoginForm
+from app.models import User, Car, Favourite
+from datetime import date
+from werkzeug.utils import secure_filename
+import os
 
 
 ###
@@ -26,16 +31,39 @@ def about():
 @app.route('/api/register', methods=['POST'])
 def register():
     """Render website's home page."""
+	form = UserForm()
+	if request.method == 'POST' and form.validate_on_submit():
+		photo = form.photo.data
+		file = secure_filename(photo.filename)
+		photo.save(os.path.join(app.config['UPLOAD_FOLDER'],file))
+		entry = User(
+		username = form.username.data,
+		password = form.password.data,
+		name = form.name.data,
+		email = form.email.data,
+		location = form.location.data,
+		biography = form.biography.data,
+		photo = file,
+		date_joined = date.today())
+		
+		db.session.add(entry)
+		db.session.commit()
+		flash('Property successfully added')
     return render_template('register.html')
 
 @app.route('/api/auth/login', methods=['POST'])
 def login():
     """Render website's home page."""
+	form = LoginForm
+	if request.method == 'POST' and form.validate_on_submit():
+		username = form.username.data
+		password = form.password.data
     return render_template('login.html')
 
 @app.route('/api/auth/logout', methods=['POST'])
 def logout():
     """Render website's home page."""
+	session.clear()
     return render_template('home.html')
 
 @app.route('/api/cars', methods=['GET'])

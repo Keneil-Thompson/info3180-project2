@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import SelectField, TextField, TextAreaField
+from wtforms import SelectField, TextField, TextAreaField, PasswordField
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Email
 
-class UserForm(FlaskForm):	
+class CarForm(FlaskForm):	
 	description = TextAreaField('Description',[DataRequired()])
 	make = TextField('Make',[DataRequired()])
 	model = TextField('Model',[DataRequired()])
@@ -14,8 +14,18 @@ class UserForm(FlaskForm):
 	price = TextField('Price',[DataRequired()])
 	photo = FileField('Photo',validators = [FileRequired(),FileAllowed(['jpg','png'],'imagesonly')])
 	
-class CarForm(FlaskForm):
-	pass
+class UserForm(FlaskForm):
+	username = TextField('Username',[DataRequired()])
+	password = TextField('Password',[DataRequired()])
+	name = TextField('Name',[DataRequired()])
+	email = TextField('Email',[DataRequired(),Email()])
+	location = TextField('Location', [DataRequired()])
+	biography = TextField('Biography', [DataRequired()])
+	photo = FileField('Photo',validators = [FileRequired(),FileAllowed(['jpg','png'],'imagesonly')])
 	
 class FavouriteForm(FlaskForm):
 	pass
+
+class LoginForm(FlaskForm):
+	username = TextField('Username',[DataRequired()])
+	password = PasswordField('Password',[DataRequired()])
